@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/weisermichael/ingestInterview#readme",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "ssh2-sftp-client": "^8.1.0"
   }
 }

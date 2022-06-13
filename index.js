@@ -1,5 +1,8 @@
-let Client = require('ssh2-sftp-client');
-let sftp = new Client();
+const csv = require('csv-parser');
+const fs = require('fs');
+
+const Client = require('ssh2-sftp-client');
+const sftp = new Client();
 
 //sftp server config
 const creds = {
@@ -12,5 +15,21 @@ const creds = {
 sftp.connect({...creds})                                                //connect to server
     .then(() => sftp.get('/sample_orders.csv', './sample_orders.csv'))  //download data
     .catch(err => console.log(err, 'catch error'))                      //catch errors
-    .then(() => sftp.end())                                             //close connection
+    .then(() => {
+        sftp.end()                                                      //close connection
+        toCSV()
+    }
+)                                             
 
+const toCSV = () => {
+    const writeFileFunc = (data) => fs.writeFile('parsed_data.json', data, {flag: 'a'}, err=>{});
+    
+    fs.createReadStream('sample_orders.csv')
+        .pipe(csv())
+        .on('data', (data) => {
+            if (data[order_is_void] == "False"){
+                writeFileFunc(JSON.stringify(data))
+            }
+        })
+        .on('end', () => console.log("finished"))
+}
