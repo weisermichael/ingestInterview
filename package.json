@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/weisermichael/ingestInterview/issues"
   },
-  "homepage": "https://github.com/weisermichael/ingestInterview#readme"
+  "homepage": "https://github.com/weisermichael/ingestInterview#readme",
+  "dependencies": {
+    "ssh2-sftp-client": "^8.1.0"
+  }
 }
